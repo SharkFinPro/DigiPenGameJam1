@@ -27,5 +27,9 @@ Starts outside the ship, chilling on the sea floor, low risk and mainly a tutori
 *Win/Lose Conditions*\
 Get to the end of the level. You lose by touching enemies and obstacles, or getting crushed by falling debris.\
 
+*Atmosphere*\
+Needs to feel huge, and like the boat is still settling down. Dark, but not really out to get you, just... it's a dangerous place.\
+
+
 ### Target Audience
 Casual players of all kinds, nothing that is excessively hard. No major restrictions, anyone can play!
