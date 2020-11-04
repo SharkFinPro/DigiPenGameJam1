@@ -25,10 +25,10 @@ That they're underwater, they move slower than above water, and are somewhat slu
 Starts outside the ship, chilling on the sea floor, low risk and mainly a tutorial. After the first level, the player moves inside the ship, and is put in a much more cramped and dangerous place.
 
 *Win/Lose Conditions*\
-Get to the end of the level. You lose by touching enemies and obstacles, or getting crushed by falling debris.\
+Get to the end of the level. You lose by touching enemies and obstacles, or getting crushed by falling debris.
 
 *Atmosphere*\
-Needs to feel huge, and like the boat is still settling down. Dark, but not really out to get you, just... it's a dangerous place.\
+Needs to feel huge, and like the boat is still settling down. Dark, but not really out to get you, just... it's a dangerous place.
 
 
 ### Target Audience
