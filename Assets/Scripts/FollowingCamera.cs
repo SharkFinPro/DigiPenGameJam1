@@ -30,6 +30,8 @@ public class FollowingCamera : MonoBehaviour
             newPos.z = transform.position.z;
             //use linear interpolation to smoothly go to the target
             transform.position = Vector3.Lerp(transform.position, newPos, smoothVal);
+   
+
 
         }
     }
