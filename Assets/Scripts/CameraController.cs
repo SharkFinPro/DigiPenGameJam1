@@ -68,15 +68,17 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        Vector3 newPos = new Vector3(transform.position.x + (Follow.transform.position.x - transform.position.x) / Smoothness, transform.position.y + (Follow.transform.position.y - transform.position.y) / Smoothness, -10);
+
         if (Bounds != null)
         {
             //Limit camera
-            transform.position = new Vector3(Mathf.Clamp(Follow.transform.position.x, Bounds.bounds.min.x + w / 2, Bounds.bounds.max.x - w / 2), Mathf.Clamp(Follow.transform.position.y, Bounds.bounds.min.y + h / 2, Bounds.bounds.max.y - h / 2), -10) + offset;
+            transform.position = new Vector3(Mathf.Clamp(newPos.x, Bounds.bounds.min.x + w / 2, Bounds.bounds.max.x - w / 2), Mathf.Clamp(newPos.y, Bounds.bounds.min.y + h / 2, Bounds.bounds.max.y - h / 2), newPos.z) + offset;
         }
         else
         {
             //No limit for camera
-            transform.position = new Vector3(transform.position.x + (Follow.transform.position.x - transform.position.x) / Smoothness, transform.position.y + (Follow.transform.position.y - transform.position.y) / Smoothness, -10) + offset;
+            transform.position = newPos + offset;
         }
     }
 
