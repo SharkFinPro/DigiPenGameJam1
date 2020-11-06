@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     public float Smoothness = 2;
 
     [Tooltip("Limits of camera movement. Can be null")]
-    public BoxCollider2D Bounds;
+    public Collider2D Bounds;
 
 
 

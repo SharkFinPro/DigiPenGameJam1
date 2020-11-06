@@ -18,15 +18,20 @@ public class PlayerController : MonoBehaviour
     public float EndAccel = 10f;
     [Tooltip("MaximumSpeed")]
     public float MaxSpeed = 10f;
-    Rigidbody2D myRB;
+
+    private Rigidbody2D rb;
+    private CapsuleCollider2D groundCol;
+    private bool onGround;
+
     // Start is called before the first frame update
     void Start()
     {
-        myRB = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        groundCol = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // movement
         float movement;
@@ -36,17 +41,31 @@ public class PlayerController : MonoBehaviour
         if(horizInput != 0)
         {
             // interpolate between current velocity and desired velocity
-            movement = Mathf.Lerp(myRB.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
+            movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
         }
         // otherwise use EndAccel
         else
         {
-            movement = Mathf.Lerp(myRB.velocity.x, horizInput * Speed * Time.deltaTime, EndAccel * Time.deltaTime);
+            movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, EndAccel * Time.deltaTime);
         }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
-        myRB.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), myRB.velocity.y);
+        rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
+    }
 
-    
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.IsTouching(groundCol))
+        {
+            onGround = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (!col.IsTouching(groundCol))
+        {
+            onGround = false;
+        }
     }
 }
