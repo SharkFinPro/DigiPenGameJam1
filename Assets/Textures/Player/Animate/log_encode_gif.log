@@ -1,0 +1,147 @@
+ffmpeg version 4.2.2 Copyright (c) 2000-2019 the FFmpeg developers
+  built with gcc 9.2.1 (GCC) 20200122
+  configuration: --enable-gpl --enable-version3 --enable-sdl2 --enable-fontconfig --enable-gnutls --enable-iconv --enable-libass --enable-libdav1d --enable-libbluray --enable-libfreetype --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libopus --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libtheora --enable-libtwolame --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libzimg --enable-lzma --enable-zlib --enable-gmp --enable-libvidstab --enable-libvorbis --enable-libvo-amrwbenc --enable-libmysofa --enable-libspeex --enable-libxvid --enable-libaom --enable-libmfx --enable-amf --enable-ffnvcodec --enable-cuvid --enable-d3d11va --enable-nvenc --enable-nvdec --enable-dxva2 --enable-avisynth --enable-libopenmpt
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Splitting the commandline.
+Reading option '-v' ... matched as option 'v' (set logging level) with argument 'debug'.
+Reading option '-nostdin' ... matched as option 'stdin' (enable or disable interaction on standard input) with argument 0.
+Reading option '-progress' ... matched as option 'progress' (write program-readable progress information) with argument 'C:/Users/Flynn/AppData/Local/Temp/KritaFFmpegProgress.AysAur'.
+Reading option '-r' ... matched as option 'r' (set frame rate (Hz value, fraction or abbreviation)) with argument '2'.
+Reading option '-start_number' ... matched as AVOption 'start_number' with argument '1'.
+Reading option '-i' ... matched as input url with argument 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle%04d.png'.
+Reading option '-i' ... matched as input url with argument 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png'.
+Reading option '-lavfi' ... matched as option 'lavfi' (create a complex filtergraph) with argument '[0:v][1:v] paletteuse'.
+Reading option '-y' ... matched as option 'y' (overwrite output files) with argument '1'.
+Reading option 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdleDemo.gif' ... matched as output url.
+Reading option '-vf' ... matched as option 'vf' (set video filters) with argument 'scale=w=64:h=64'.
+Trailing options were found on the commandline.
+Finished splitting the commandline.
+Parsing a group of options: global .
+Applying option v (set logging level) with argument debug.
+Applying option nostdin (enable or disable interaction on standard input) with argument 0.
+Applying option progress (write program-readable progress information) with argument C:/Users/Flynn/AppData/Local/Temp/KritaFFmpegProgress.AysAur.
+[file @ 000002babc35e540] Setting default whitelist 'file,crypto'
+Applying option lavfi (create a complex filtergraph) with argument [0:v][1:v] paletteuse.
+Applying option y (overwrite output files) with argument 1.
+Successfully parsed a group of options.
+Parsing a group of options: input url C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle%04d.png.
+Applying option r (set frame rate (Hz value, fraction or abbreviation)) with argument 2.
+Successfully parsed a group of options.
+Opening an input file: C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle%04d.png.
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0001.png' for reading
+[file @ 000002babc3a20c0] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc3aa2c0] Statistics: 85200 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0002.png' for reading
+[file @ 000002babc3bf280] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc3a20c0] Statistics: 85283 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0003.png' for reading
+[file @ 000002babc3e1b80] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc3e1c80] Statistics: 84984 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0004.png' for reading
+[file @ 000002babc3e1b80] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc3f6b80] Statistics: 84960 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0005.png' for reading
+[file @ 000002babc3e1b80] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc40b980] Statistics: 85200 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0006.png' for reading
+[file @ 000002babc3e1b80] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc40bb40] Statistics: 85200 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0007.png' for reading
+[file @ 000002babc3e1b80] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babc40bd00] Statistics: 85200 bytes read, 0 seeks
+[image2 @ 000002babc39e940] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle0008.png' for reading
+[file @ 000002babc40bd00] Setting default whitelist 'file,crypto'
+[AVIOContext @ 000002babd46e8c0] Statistics: 85200 bytes read, 0 seeks
+Input #0, image2, from 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle%04d.png':
+  Duration: 00:00:00.32, start: 0.000000, bitrate: N/A
+    Stream #0:0, 8, 1/25: Video: png, 1 reference frame, rgba(pc), 2048x2048 [SAR 3937:3937 DAR 1:1], 0/1, 25 fps, 25 tbr, 25 tbn, 25 tbc
+Successfully opened the file.
+Parsing a group of options: input url C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png.
+Successfully parsed a group of options.
+Opening an input file: C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png.
+[NULL @ 000002babd4843c0] Opening 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png' for reading
+[file @ 000002babd484ac0] Setting default whitelist 'file,crypto'
+[png_pipe @ 000002babd4843c0] Format png_pipe probed with size=2048 and score=99
+[png_pipe @ 000002babd4843c0] Before avformat_find_stream_info() pos: 0 bytes read:843 seeks:0 nb_streams:1
+[png_pipe @ 000002babd4843c0] After avformat_find_stream_info() pos: 843 bytes read:843 seeks:0 frames:1
+Input #1, png_pipe, from 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png':
+  Duration: N/A, bitrate: N/A
+    Stream #1:0, 1, 1/25: Video: png, 1 reference frame, rgba(pc), 16x16 [SAR 1:1 DAR 1:1], 0/1, 25 tbr, 25 tbn, 25 tbc
+Successfully opened the file.
+Parsing a group of options: output url C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdleDemo.gif.
+Successfully parsed a group of options.
+Opening an output file: C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdleDemo.gif.
+[file @ 000002babc40d3c0] Setting default whitelist 'file,crypto'
+Successfully opened the file.
+detected 4 logical cores
+Stream mapping:
+  Stream #0:0 (png) -> paletteuse:default
+  Stream #1:0 (png) -> paletteuse:palette
+  paletteuse -> Stream #0:0 (gif)
+cur_dts is invalid st:0 (0) [init:0 i_done:0 finish:0] (this is harmless if it occurs once at the start per stream)
+    Last message repeated 33622 times
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'video_size' to value '2048x2048'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'pix_fmt' to value '26'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'time_base' to value '1/2'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'pixel_aspect' to value '3937/3937'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'sws_param' to value 'flags=2'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] Setting 'frame_rate' to value '2/1'
+[graph 0 input from stream 0:0 @ 000002babc3a9b80] w:2048 h:2048 pixfmt:rgba tb:1/2 fr:2/1 sar:3937/3937 sws_param:flags=2
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'video_size' to value '16x16'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'pix_fmt' to value '26'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'time_base' to value '1/25'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'pixel_aspect' to value '1/1'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'sws_param' to value 'flags=2'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] Setting 'frame_rate' to value '25/1'
+[graph 0 input from stream 1:0 @ 000002babc3a9d40] w:16 h:16 pixfmt:rgba tb:1/25 fr:25/1 sar:1/1 sws_param:flags=2
+[format @ 000002babd4e5b00] Setting 'pix_fmts' to value 'rgb8|bgr8|rgb4_byte|bgr4_byte|gray|pal8'
+[auto_scaler_0 @ 000002babd4e62c0] w:iw h:ih flags:'bilinear' interl:0
+[Parsed_paletteuse_0 @ 000002babc3bf200] auto-inserting filter 'auto_scaler_0' between the filter 'graph 0 input from stream 0:0' and the filter 'Parsed_paletteuse_0'
+[auto_scaler_1 @ 000002babd4cbd80] w:iw h:ih flags:'bilinear' interl:0
+[Parsed_paletteuse_0 @ 000002babc3bf200] auto-inserting filter 'auto_scaler_1' between the filter 'graph 0 input from stream 1:0' and the filter 'Parsed_paletteuse_0'
+[AVFilterGraph @ 000002babc3e0bc0] query_formats: 5 queried, 2 merged, 2 already done, 0 delayed
+[swscaler @ 000002babd5aef40] Forcing full internal H chroma due to input having non subsampled chroma
+[auto_scaler_0 @ 000002babd4e62c0] w:2048 h:2048 fmt:rgba sar:3937/3937 -> w:2048 h:2048 fmt:bgra sar:1/1 flags:0x2
+[swscaler @ 000002babd5bbe80] Forcing full internal H chroma due to input having non subsampled chroma
+[auto_scaler_1 @ 000002babd4cbd80] w:16 h:16 fmt:rgba sar:1/1 -> w:16 h:16 fmt:bgra sar:1/1 flags:0x2
+[Parsed_paletteuse_0 @ 000002babc3bf200] [framesync @ 000002babd52b348] Selected 1/50 time base
+[Parsed_paletteuse_0 @ 000002babc3bf200] [framesync @ 000002babd52b348] Sync level 2
+Output #0, gif, to 'C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdleDemo.gif':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0, 0, 1/100: Video: gif, 1 reference frame, pal8, 2048x2048 [SAR 1:1 DAR 1:1], 0/1, q=2-31, 200 kb/s, 2 fps, 100 tbn, 2 tbc (default)
+    Metadata:
+      encoder         : Lavc58.54.100 gif
+Clipping frame in rate conversion by 0.000008
+frame=    1 fps=0.0 q=-0.0 size=       0kB time=00:00:00.01 bitrate=   0.0kbits/s speed=0.0111x    [gif @ 000002babc40c6c0] 1056x1952 image at pos (544;96) [area:2048x2048]
+[gif @ 000002babc40c6c0] 1056x1920 image at pos (544;128) [area:2048x2048]
+    Last message repeated 1 times
+frame=    4 fps=2.6 q=-0.0 size=     179kB time=00:00:01.51 bitrate= 971.3kbits/s speed=0.998x    [gif @ 000002babc40c6c0] 1056x1952 image at pos (544;96) [area:2048x2048]
+    Last message repeated 1 times
+frame=    6 fps=2.9 q=-0.0 size=     256kB time=00:00:02.51 bitrate= 835.5kbits/s speed=1.22x    [gif @ 000002babc40c6c0] 1056x1952 image at pos (544;96) [area:2048x2048]
+    Last message repeated 1 times
+frame=    8 fps=3.1 q=-0.0 size=     256kB time=00:00:03.51 bitrate= 597.5kbits/s speed=1.36x    [Parsed_paletteuse_0 @ 000002babc3bf200] [framesync @ 000002babd52b348] Sync level 0
+[out_0_0 @ 000002babd506b40] EOF on sink link out_0_0:default.
+No more output streams to write to, finishing.
+frame=    8 fps=2.9 q=-0.0 Lsize=     462kB time=00:00:03.51 bitrate=1079.1kbits/s speed=1.26x    
+[AVIOContext @ 000002babc39e700] Statistics: 0 seeks, 5 writeouts
+video:462kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.004224%
+Input file #0 (C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdle%04d.png):
+  Input stream #0:0 (video): 8 packets read (681227 bytes); 8 frames decoded; 
+  Total: 8 packets (681227 bytes) demuxed
+Input file #1 (C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/palette.png):
+  Input stream #1:0 (video): 1 packets read (843 bytes); 1 frames decoded; 
+  Total: 1 packets (843 bytes) demuxed
+Output file #0 (C:/Users/Flynn/Documents/Unity/DigiPenGameJam1/Assets/Textures/Player/Animate/PlayerIdleDemo.gif):
+  Output stream #0:0 (video): 8 frames encoded; 8 packets muxed (473442 bytes); 
+  Total: 8 packets (473442 bytes) muxed
+9 frames successfully decoded, 0 decoding errors
+[AVIOContext @ 000002babc40d4c0] Statistics: 0 seeks, 2 writeouts
+[AVIOContext @ 000002babd484bc0] Statistics: 843 bytes read, 0 seeks
