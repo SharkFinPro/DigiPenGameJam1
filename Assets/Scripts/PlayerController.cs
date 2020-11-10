@@ -50,11 +50,14 @@ public class PlayerController : MonoBehaviour
         }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
-        if (onGround = true)
+        if (onGround == true)
         {
             rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
         }
-        
+        else
+        {
+            rb.velocity = new Vector2(movement, rb.velocity.y);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
