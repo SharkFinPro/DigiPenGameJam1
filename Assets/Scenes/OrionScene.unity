@@ -210,7 +210,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -90265,7 +90265,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.05
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -90289,7 +90289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068959590}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -90324,12 +90324,12 @@ PrefabInstance:
     - target: {fileID: 7486720186777462052, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7486720186777462052, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4694686
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7486720186777462052, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
@@ -90375,21 +90375,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7486720186777462058, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7486720186777462059, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 7486720186777462059, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d12d64a7b6aec2f4b9d5f512b7f54176, type: 3}

@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
             float horizInput = Input.GetAxisRaw("Horizontal");
             // move left and right
             // if pressing left and right, use StartAccel
-            if (horizInput != 0)
+            if(horizInput != 0)
             {
                 // interpolate between current velocity and desired velocity
                 movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
@@ -68,9 +68,13 @@ public class PlayerController : MonoBehaviour
             }
             // KEEP Y VELOCITY CONSISTENT!
             // this is why movement is best kept as just a float instead of a vector
-            if (onGround = true)
+            if (onGround == true)
             {
                 rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(movement, rb.velocity.y);
             }
         }
 
@@ -149,7 +153,7 @@ public class PlayerController : MonoBehaviour
             {
                 rb.position = new Vector2(initGrap.x + xd, initGrap.y + yd);
             }
-            
+
         }
         else if (Input.GetMouseButtonUp(0) && grappling)
         {
