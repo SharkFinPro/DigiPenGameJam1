@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D groundCol;
     private bool onGround;
 
-
+    
     // Grappling
     private LineRenderer grappleLine;
     public Material grappleMaterial;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!grappling)
+        if (!grappling && Input.GetAxisRaw("Horizontal") != 0)
         {
             // movement
             float movement;
@@ -110,6 +110,10 @@ public class PlayerController : MonoBehaviour
                 float xdif = p2.x - p1.x;
                 float ydif = p2.y - p1.y;
                 grapLength = (float)Math.Sqrt(xdif * xdif + ydif * ydif);
+                
+                // Make sure gravity is not an issue, reset velocity
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                rb.velocity = new Vector2(0, 0);
             }
 
         }
@@ -118,11 +122,11 @@ public class PlayerController : MonoBehaviour
             // Grapple Movement
             if (Input.GetKey(KeyCode.W))
             {
-                grapMove += grapLength / 25;
+                grapMove += grapLength / 10;
             }
             if (Input.GetKey(KeyCode.S))
             {
-                grapMove -= grapLength / 25;
+                grapMove -= grapLength / 10;
             }
             // Stay in bounds of Grapple
             if (grapMove < 0.0f)
@@ -159,6 +163,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(grappleLine);
             grappling = false;
+            // regain normal physics
+            rb.bodyType = RigidbodyType2D.Dynamic;
         }
     }
 
