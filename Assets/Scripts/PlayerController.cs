@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private bool grappling = false;
     private float grapSpeed = 0.25f;
     private float maxGrapLength = 10.0f;
+    private float blockClipDistance = 0.5f;
 
     private LineRenderer grappleLine;
     public Material grappleMaterial;
@@ -207,9 +208,9 @@ public class PlayerController : MonoBehaviour
         {
             grapPos = 0.0f;
         }
-        else if (grapPos > grapLength)
+        else if (grapPos > grapLength - blockClipDistance)
         {
-            grapPos = grapLength;
+            grapPos = grapLength - blockClipDistance;
         }
 
         // Grapple movement calculation
