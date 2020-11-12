@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public float MaxSpeed = 10f;
     bool CanMove = true;
     private Rigidbody2D rb;
+    private Animator anim;
+    private SpriteRenderer render;
     private CapsuleCollider2D groundCol;
     private bool onGround;
 
@@ -49,8 +51,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         groundCol = GetComponent<CapsuleCollider2D>();
+        render = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -114,11 +118,22 @@ public class PlayerController : MonoBehaviour
         {
             // interpolate between current velocity and desired velocity
             movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
+            anim.SetBool("Walking", true);
         }
         // otherwise use EndAccel
         else
         {
             movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, EndAccel * Time.deltaTime);
+
+            if (Math.Abs(movement) < 0.1)
+            {
+                anim.SetBool("Walking", false);
+            }
+        }
+
+        if (Math.Abs(movement) > 0.1)
+        {
+            render.flipX = movement < 0;
         }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
