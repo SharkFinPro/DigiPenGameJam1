@@ -55,38 +55,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // after grappling, have you tried to move again?
+        // After grappling, have you tried to move again?
         if(!CanMove && Input.GetAxisRaw("Horizontal") != 0)
         {
             CanMove = true;
         }
+
+        // Movement
         if (!grappling && CanMove)
         {
-            // movement
-            float movement;
-            float horizInput = Input.GetAxisRaw("Horizontal");
-            // move left and right
-            // if pressing left and right, use StartAccel
-            if(horizInput != 0)
-            {
-                // interpolate between current velocity and desired velocity
-                movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
-            }
-            // otherwise use EndAccel
-            else
-            {
-                movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, EndAccel * Time.deltaTime);
-            }
-            // KEEP Y VELOCITY CONSISTENT!
-            // this is why movement is best kept as just a float instead of a vector
-            if (onGround == true)
-            {
-                rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(movement, rb.velocity.y);
-            }
+            doMovement();
         }
 
         // Grapple
@@ -104,6 +82,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    Vector2 getPosition()
+    {
+        return rb.position;
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.IsTouching(groundCol))
@@ -119,12 +102,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    Vector2 getPosition()
+    private void doMovement()
     {
-        return rb.position;
+        // movement
+        float movement;
+        float horizInput = Input.GetAxisRaw("Horizontal");
+        // move left and right
+        // if pressing left and right, use StartAccel
+        if (horizInput != 0)
+        {
+            // interpolate between current velocity and desired velocity
+            movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
+        }
+        // otherwise use EndAccel
+        else
+        {
+            movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, EndAccel * Time.deltaTime);
+        }
+        // KEEP Y VELOCITY CONSISTENT!
+        // this is why movement is best kept as just a float instead of a vector
+        if (onGround == true)
+        {
+            rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(movement, rb.velocity.y);
+        }
     }
 
-    void createGrapple()
+    private void createGrapple()
     {
         grappleLine = new GameObject("Grapple").AddComponent<LineRenderer>();
         grappleLine.material = grappleMaterial;
@@ -134,7 +141,7 @@ public class PlayerController : MonoBehaviour
         grappleLine.numCapVertices = 50;
     }
 
-    void startGrappling()
+    private void startGrappling()
     {
         // Check if there is a wall to grapple to
         Vector2 mousPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -183,7 +190,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void updateGrapple()
+    private void updateGrapple()
     {
         // Grapple Movement
         if (Input.GetKey(KeyCode.W))
@@ -222,7 +229,7 @@ public class PlayerController : MonoBehaviour
         grappleLine.SetPosition(0, grapLoc);
     }
 
-    void destroyGrapple()
+    private void destroyGrapple()
     {
         Destroy(grappleLine);
         grappling = false;
