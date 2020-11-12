@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer render;
     private CapsuleCollider2D groundCol;
     private bool onGround;
+    private bool prevOnGround = true;
 
 
     // Grappling
@@ -109,6 +110,17 @@ public class PlayerController : MonoBehaviour
 
     private void doMovement()
     {
+        if (onGround && !prevOnGround)
+        {
+            anim.SetTrigger("Land");
+        }
+        else
+        {
+            anim.ResetTrigger("Land");
+            anim.SetBool("Falling", !onGround);
+        }
+        prevOnGround = onGround;
+
         // movement
         float movement;
         float horizInput = Input.GetAxisRaw("Horizontal");
@@ -118,7 +130,9 @@ public class PlayerController : MonoBehaviour
         {
             // interpolate between current velocity and desired velocity
             movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
-            anim.SetBool("Walking", true);
+
+            if(!anim.GetBool("Falling"))
+                anim.SetBool("Walking", true);
         }
         // otherwise use EndAccel
         else
