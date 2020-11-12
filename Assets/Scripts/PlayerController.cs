@@ -140,18 +140,24 @@ public class PlayerController : MonoBehaviour
         grappleLine.startWidth = 0.15f;
         grappleLine.useWorldSpace = true;
         grappleLine.numCapVertices = 50;
+        grappleLine.material.color = Color.black;
     }
 
-    private void startGrappling()
+    private RaycastHit2D getGrappleRaycast()
     {
         // Check if there is a wall to grapple to
         Vector2 mousPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float pxdif = mousPos.x - getPosition().x;
         float pydif = mousPos.y - getPosition().y;
 
-        RaycastHit2D hit = Physics2D.Raycast(initGrap +
-            (new Vector2(pxdif, pydif) * groundCol.bounds.size.magnitude)
-            , new Vector2(pxdif, pydif), 100.0f);
+        return Physics2D.Raycast(initGrap +
+            (new Vector2(pxdif, pydif).normalized * groundCol.bounds.size.magnitude)
+            , new Vector2(pxdif, pydif).normalized, 150.0f);
+    }
+
+    private void startGrappling()
+    {
+        RaycastHit2D hit = getGrappleRaycast();
 
         if (hit)
         {
