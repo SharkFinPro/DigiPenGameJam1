@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float EndAccel = 10f;
     [Tooltip("MaximumSpeed")]
     public float MaxSpeed = 10f;
-
+    bool CanMove = true;
     private Rigidbody2D rb;
     private CapsuleCollider2D groundCol;
     private bool onGround;
@@ -49,7 +49,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!grappling && Input.GetAxisRaw("Horizontal") != 0)
+        // after grappling, have you tried to move again?
+        if(!CanMove && Input.GetAxisRaw("Horizontal") != 0)
+        {
+            CanMove = true;
+        }
+        if (!grappling && CanMove)
         {
             // movement
             float movement;
@@ -163,6 +168,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(grappleLine);
             grappling = false;
+            CanMove = false;
             // regain normal physics
             rb.bodyType = RigidbodyType2D.Dynamic;
         }
