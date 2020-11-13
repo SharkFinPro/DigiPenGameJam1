@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     // Grappling
     private bool grappling = false;
-    private float grapSpeed = 0.25f;
+    public float grapSpeed = 0.25f;
     public LayerMask IgnoreLayer;
     private float maxGrapLength = 150.0f;
     private float blockClipDistance = 0.5f;
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0) && grappling)
         {
+            rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
             destroyGrapple();
         }
     }
