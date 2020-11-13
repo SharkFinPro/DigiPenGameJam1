@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿////////////////
+///By: Flynn Duniho
+///Date: 10/5/20
+///Description: This makes the enemy launch toward the player when in sight
+////////////////
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
