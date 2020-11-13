@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // After grappling, have you tried to move again?
-        if(!CanMove && Input.GetAxisRaw("Horizontal") != 0)
+        if((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround)
         {
             CanMove = true;
         }
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         float horizInput = Input.GetAxisRaw("Horizontal");
         // move left and right
         // if pressing left and right, use StartAccel
-        if (horizInput != 0)
+        if (Math.Abs(horizInput) >= float.Epsilon)
         {
             // interpolate between current velocity and desired velocity
             movement = Mathf.Lerp(rb.velocity.x, horizInput * Speed * Time.deltaTime, StartAccel * Time.deltaTime);
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
-        if (onGround == true)
+        if (onGround)
         {
             rb.velocity = new Vector2(Mathf.Clamp(movement, -MaxSpeed, MaxSpeed), rb.velocity.y);
         }
@@ -179,9 +179,9 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D getGrappleRaycast()
     {
         // Check if there is a wall to grapple to
-        Vector2 mousPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        return Physics2D.Raycast(initGrap, (mousPos - initGrap).normalized, maxGrapLength, ~IgnoreLayer);
+        return Physics2D.Raycast(transform.position, (mousePos - (Vector2)transform.position).normalized, maxGrapLength, ~IgnoreLayer);
     }
 
     private void startGrappling()
@@ -204,6 +204,8 @@ public class PlayerController : MonoBehaviour
             grapLoc = initGrap;
             grappleLine.SetPosition(0, initGrap);
             grappleLine.SetPosition(1, hit.point);
+            //grappleLine.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            
 
             // Check if the grapple length is within bounds of the set max
             Vector2 p1 = grappleLine.GetPosition(0);
@@ -211,7 +213,7 @@ public class PlayerController : MonoBehaviour
 
             float xdif = p2.x - p1.x;
             float ydif = p2.y - p1.y;
-            grapLength = (float)Math.Sqrt(xdif * xdif + ydif * ydif);
+            grapLength = (p2 - p1).magnitude;
 
             if (grapLength > maxGrapLength)
             {
@@ -220,8 +222,8 @@ public class PlayerController : MonoBehaviour
             }
 
             // Make sure gravity is not an issue, reset velocity
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.velocity = new Vector2(0, 0);
+            //rb.bodyType = RigidbodyType2D.Kinematic;
+            //rb.velocity = new Vector2(0, 0);
 
             // Make sure the player knows it is grappling now
             grappling = true;
@@ -231,65 +233,66 @@ public class PlayerController : MonoBehaviour
     private void updateGrapple()
     {
         // Grapple Movement
-        if (Input.GetKey(KeyCode.W))
-        {
-            grapSpeed += grapSpeedInc;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            grapSpeed -= grapSpeedInc;
-        }
+        //grapSpeed += Input.GetAxisRaw("Vertical") * grapSpeedInc;
 
-        if (grapSpeed > maxGrapSpeed)
-        {
-            grapSpeed = maxGrapSpeed;
-        } else if (grapSpeed < -maxGrapSpeed)
-        {
-            grapSpeed = -maxGrapSpeed;
-        }
+        //if (grapSpeed > maxGrapSpeed)
+        //{
+        //    grapSpeed = maxGrapSpeed;
+        //} else if (grapSpeed < -maxGrapSpeed)
+        //{
+        //    grapSpeed = -maxGrapSpeed;
+        //}
 
-        grapSpeed /= 1.15f;
+        //grapSpeed /= 1.15f;
 
-        grapPos += grapSpeed;
+        //grapPos += grapSpeed;
 
-        // Stay in bounds of Grapple
-        if (grapPos < 0.0f)
-        {
-            grapPos = 0.0f;
-        }
-        else if (grapPos > grapLength - blockClipDistance)
-        {
-            grapPos = grapLength - blockClipDistance;
-        }
+        //// Stay in bounds of Grapple
+        //if (grapPos < 0.0f)
+        //{
+        //    grapPos = 0.0f;
+        //}
+        //else if (grapPos > grapLength - blockClipDistance)
+        //{
+        //    grapPos = grapLength - blockClipDistance;
+        //}
 
-        // Grapple movement calculation
-        Vector2 p1 = initGrap; // Point 1
+        //// Grapple movement calculation
+        grappleLine.SetPosition(0, transform.position);
+        Vector2 p1 = grappleLine.GetPosition(0); // Point 1
         Vector2 p2 = grappleLine.GetPosition(1); // Point 2
 
-        float ydif = p2.y - p1.y;
-        float ang = (float)Math.Asin(ydif / grapLength);
+        //float ydif = p2.y - p1.y;
+        //float xdif = p2.x - p1.x;
+        //float ang = (float)Math.Atan2(xdif, ydif);
 
-        float yd = (float)Math.Sin(ang) * grapPos;
-        float xd = (float)Math.Cos(ang) * grapPos;
+        //float yd = (float)Math.Sin(ang) * grapPos;
+        //float xd = (float)Math.Cos(ang) * grapPos;
 
-        // Move along the grappling line
-        grapLoc = new Vector2(p2.x < p1.x ? initGrap.x - xd : initGrap.x + xd, initGrap.y + yd);
-        rb.position = grapLoc;
+        //// Move along the grappling line
+        //grapLoc = new Vector2(p2.x < p1.x ? initGrap.x - xd : initGrap.x + xd, initGrap.y + yd);
+        //rb.position = grapLoc;
 
-        grappleLine.SetPosition(0, grapLoc);
+        //grappleLine.SetPosition(0, grapLoc);
+        rb.AddForce((p2 - p1) * grapSpeedInc * Time.deltaTime);
+
+        if(rb.velocity.magnitude > maxGrapSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxGrapSpeed;
+        }
     }
 
     private void destroyGrapple()
     {
         // Fling Player
-        rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
+        //rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
 
         // Destroy Grapple
         Destroy(grappleLine.gameObject);
         grappling = false;
 
         // Regain normal physics
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        //rb.bodyType = RigidbodyType2D.Dynamic;
 
         CanMove = false;
     }
