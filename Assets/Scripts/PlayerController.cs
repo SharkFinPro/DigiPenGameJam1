@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private bool grappling = false;
     private float grapSpeed = 0.25f;
     public LayerMask IgnoreLayer;
-    private float maxGrapLength = 10.0f;
+    private float maxGrapLength = 150.0f;
     private float blockClipDistance = 0.5f;
 
     private LineRenderer grappleLine;
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         float pxdif = mousPos.x - getPosition().x;
         float pydif = mousPos.y - getPosition().y;
 
-        return Physics2D.Raycast(initGrap, new Vector2(pxdif, pydif).normalized, 150.0f, ~IgnoreLayer);
+        return Physics2D.Raycast(initGrap, new Vector2(pxdif, pydif).normalized, maxGrapLength, ~IgnoreLayer);
     }
 
     private void startGrappling()
