@@ -89,6 +89,17 @@ public class PlayerController : MonoBehaviour
             rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
             destroyGrapple();
         }
+
+        if (onGround && !prevOnGround)
+        {
+            anim.SetTrigger("Land");
+        }
+        else
+        {
+            anim.ResetTrigger("Land");
+            anim.SetBool("Falling", !onGround);
+        }
+        prevOnGround = onGround;
     }
 
     Vector2 getPosition()
@@ -113,17 +124,6 @@ public class PlayerController : MonoBehaviour
 
     private void doMovement()
     {
-        if (onGround && !prevOnGround)
-        {
-            anim.SetTrigger("Land");
-        }
-        else
-        {
-            anim.ResetTrigger("Land");
-            anim.SetBool("Falling", !onGround);
-        }
-        prevOnGround = onGround;
-
         // movement
         float movement;
         float horizInput = Input.GetAxisRaw("Horizontal");
@@ -178,15 +178,15 @@ public class PlayerController : MonoBehaviour
     private RaycastHit2D getGrappleRaycast()
     {
         // Check if there is a wall to grapple to
-        Vector2 mousPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float pxdif = mousPos.x - getPosition().x;
-        float pydif = mousPos.y - getPosition().y;
+        Vector2 mousPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 
-        return Physics2D.Raycast(initGrap, new Vector2(pxdif, pydif).normalized, maxGrapLength, ~IgnoreLayer);
+        return Physics2D.Raycast(initGrap, (mousPos - initGrap).normalized, maxGrapLength, ~IgnoreLayer);
     }
 
     private void startGrappling()
     {
+        //onGround = false;
+        //prevOnGround = false;
         RaycastHit2D hit = getGrappleRaycast();
 
         if (hit)
@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
             // Set grapple position
             grapPos = 0;
-            initGrap = this.getPosition();
+            initGrap = getPosition();
             grapLoc = initGrap;
             grappleLine.SetPosition(0, initGrap);
             grappleLine.SetPosition(1, hit.point);
