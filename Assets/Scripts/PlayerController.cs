@@ -181,9 +181,7 @@ public class PlayerController : MonoBehaviour
         float pxdif = mousPos.x - getPosition().x;
         float pydif = mousPos.y - getPosition().y;
 
-        return Physics2D.Raycast(initGrap +
-            (new Vector2(pxdif, pydif).normalized * groundCol.bounds.size.magnitude)
-            , new Vector2(pxdif, pydif).normalized, 150.0f, ~IgnoreLayer);
+        return Physics2D.Raycast(initGrap, new Vector2(pxdif, pydif).normalized, 150.0f, ~IgnoreLayer);
     }
 
     private void startGrappling()
@@ -215,7 +213,7 @@ public class PlayerController : MonoBehaviour
 
             if (grapLength > maxGrapLength)
             {
-                Destroy(grappleLine);
+                Destroy(grappleLine.gameObject);
                 return;
             }
 
