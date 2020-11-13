@@ -37,7 +37,9 @@ public class PlayerController : MonoBehaviour
 
     // Grappling
     private bool grappling = false;
-    public float grapSpeed = 0.25f;
+    public float maxGrapSpeed = 1.5f;
+    private float grapSpeed = 0;
+    public float grapSpeedInc = 0.1f;
     public LayerMask IgnoreLayer;
     private float maxGrapLength = 150.0f;
     private float blockClipDistance = 0.5f;
@@ -86,7 +88,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0) && grappling)
         {
-            rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
             destroyGrapple();
         }
     }
@@ -232,12 +233,24 @@ public class PlayerController : MonoBehaviour
         // Grapple Movement
         if (Input.GetKey(KeyCode.W))
         {
-            grapPos += grapSpeed;
+            grapSpeed += grapSpeedInc;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            grapPos -= grapSpeed;
+            grapSpeed -= grapSpeedInc;
         }
+
+        if (grapSpeed > maxGrapSpeed)
+        {
+            grapSpeed = maxGrapSpeed;
+        } else if (grapSpeed < -maxGrapSpeed)
+        {
+            grapSpeed = -maxGrapSpeed;
+        }
+
+        grapSpeed /= 1.15f;
+
+        grapPos += grapSpeed;
 
         // Stay in bounds of Grapple
         if (grapPos < 0.0f)
@@ -268,6 +281,10 @@ public class PlayerController : MonoBehaviour
 
     private void destroyGrapple()
     {
+        // Fling Player
+        rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
+
+        // Destroy Grapple
         Destroy(grappleLine.gameObject);
         grappling = false;
 
