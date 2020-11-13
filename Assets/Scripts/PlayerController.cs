@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
 
             if (grapLength > maxGrapLength)
             {
-                Destroy(grappleLine.gameObject);
+                destroyGrapple();
                 return;
             }
 
