@@ -224,10 +224,6 @@ public class PlayerController : MonoBehaviour
             // Make sure the player knows it is grappling now
             grappling = true;
         }
-        else
-        {
-            Destroy(grappleLine.gameObject);
-        }
     }
 
     private void updateGrapple()
