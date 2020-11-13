@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7486720186777462054}
   - component: {fileID: 7486720186777462055}
   - component: {fileID: 9158214024455706563}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -165,6 +165,10 @@ MonoBehaviour:
   StartAccel: 2
   EndAccel: 10
   MaxSpeed: 10
+  IgnoreLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  grappleMaterial: {fileID: 0}
 --- !u!95 &9158214024455706563
 Animator:
   serializedVersion: 3

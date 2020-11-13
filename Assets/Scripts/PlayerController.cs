@@ -13,6 +13,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     // Grappling
     private bool grappling = false;
     private float grapSpeed = 0.25f;
+    public LayerMask IgnoreLayer;
     private float maxGrapLength = 10.0f;
     private float blockClipDistance = 0.5f;
 
@@ -181,7 +183,7 @@ public class PlayerController : MonoBehaviour
 
         return Physics2D.Raycast(initGrap +
             (new Vector2(pxdif, pydif).normalized * groundCol.bounds.size.magnitude)
-            , new Vector2(pxdif, pydif).normalized, 150.0f);
+            , new Vector2(pxdif, pydif).normalized, 150.0f, ~IgnoreLayer);
     }
 
     private void startGrappling()
@@ -223,6 +225,10 @@ public class PlayerController : MonoBehaviour
 
             // Make sure the player knows it is grappling now
             grappling = true;
+        }
+        else
+        {
+            Destroy(grappleLine.gameObject);
         }
     }
 
@@ -267,7 +273,7 @@ public class PlayerController : MonoBehaviour
 
     private void destroyGrapple()
     {
-        Destroy(grappleLine);
+        Destroy(grappleLine.gameObject);
         grappling = false;
 
         // Regain normal physics
