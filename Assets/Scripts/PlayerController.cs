@@ -13,6 +13,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public float maxGrapSpeed = 1.5f;
     private float grapSpeed = 0;
     public float grapSpeedInc = 0.1f;
+    public float FireDelay = 0.4f;
     public LayerMask IgnoreLayer;
     private float maxGrapLength = 150.0f;
     private float blockClipDistance = 0.5f;
@@ -52,6 +54,9 @@ public class PlayerController : MonoBehaviour
     private float grapPos;
     private float grapLength;
 
+    private bool startGrapple;
+    private Stopwatch fireDelay;
+
 
     // Start is called before the first frame update
     void Start()
@@ -60,19 +65,20 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         groundCol = GetComponent<CapsuleCollider2D>();
         render = GetComponent<SpriteRenderer>();
+        fireDelay = new Stopwatch();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         // After grappling, have you tried to move again?
-        if((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround)
+        if(!fireDelay.IsRunning && ((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround))
         {
             CanMove = true;
         }
 
         // Movement
-        if (!grappling && CanMove)
+        if (!grappling && CanMove && !fireDelay.IsRunning)
         {
             doMovement();
         }
@@ -80,15 +86,42 @@ public class PlayerController : MonoBehaviour
         // Grapple
         if (Input.GetMouseButtonDown(0))
         {
-            startGrappling();
+            Vector2 diff = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            float angle = Mathf.Asin(diff.y / diff.magnitude) * Mathf.Rad2Deg;
+            if (angle < -45)
+            {
+                anim.SetInteger("FireAngle", -1);
+            }
+            else if (angle > 45)
+            {
+                anim.SetInteger("FireAngle", 1);
+            }
+            else
+            {
+                anim.SetInteger("FireAngle", 0);
+            }
+
+            startGrapple = true;
+            anim.SetTrigger("Fire");
+            anim.SetBool("Grappling", true);
+            fireDelay.Restart();
+            CanMove = false;
+            rb.velocity = new Vector2(diff.x > 0 ? 0.15f : -0.15f, rb.velocity.y);
         }
         else if (Input.GetMouseButton(0) && grappling)
         {
             updateGrapple();
         }
-        else if (Input.GetMouseButtonUp(0) && grappling)
+        else if (!Input.GetMouseButton(0) && grappling)
         {
             destroyGrapple();
+        }
+
+        if (startGrapple && fireDelay.ElapsedMilliseconds > FireDelay * 1000f)
+        {
+            fireDelay.Stop();
+            startGrapple = false;
+            startGrappling();
         }
 
         if (onGround && !prevOnGround)
@@ -101,6 +134,25 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Falling", !onGround);
         }
         prevOnGround = onGround;
+
+        if (Math.Abs(rb.velocity.x) > 0.1)
+        {
+            render.flipX = rb.velocity.x < 0;
+        }
+
+        if (!onGround)
+        {
+            if (rb.velocity.y > 0)
+            {
+                anim.SetBool("Grappling", true);
+                anim.SetBool("Falling", false);
+            }
+            else
+            {
+                anim.SetBool("Grappling", false);
+                anim.SetBool("Falling", true);
+            }
+        }
     }
 
     Vector2 getPosition()
@@ -149,10 +201,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Math.Abs(movement) > 0.1)
-        {
-            render.flipX = movement < 0;
-        }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
         if (onGround)
@@ -284,6 +332,7 @@ public class PlayerController : MonoBehaviour
 
     private void destroyGrapple()
     {
+        anim.SetBool("Grappling", false);
         // Fling Player
         //rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
 
