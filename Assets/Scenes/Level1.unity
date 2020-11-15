@@ -90203,7 +90203,7 @@ Transform:
   m_Children:
   - {fileID: 630192960}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1291828373 stripped
 GameObject:
@@ -90282,6 +90282,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872827192219471241, guid: 45aac3fc6f3d64acf8fe2dd38d29e256,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45aac3fc6f3d64acf8fe2dd38d29e256, type: 3}
@@ -90517,8 +90522,13 @@ PrefabInstance:
     - target: {fileID: 7486720186777462054, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
       propertyPath: m_UsedByEffector
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7486720186777462055, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
+        type: 3}
+      propertyPath: grappleAct
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d15966acfaa7b64086a803e551152a0, type: 3}
     - target: {fileID: 7486720186777462056, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
       propertyPath: m_Name

@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         // Movement
         if (!grappling && CanMove && !fireDelay.IsRunning)
         {
-            doMovement();
+            DoMovement();
             if (Math.Abs(rb.velocity.x) > 0.1)
             {
                 render.flipX = rb.velocity.x < 0;
@@ -133,18 +133,18 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetMouseButton(0) && grappling)
         {
-            updateGrapple();
+            UpdateGrapple();
         }
         else if (!Input.GetMouseButton(0) && grappling)
         {
-            destroyGrapple();
+            DestroyGrapple();
         }
 
         if (startGrapple && fireDelay.ElapsedMilliseconds > FireDelay * 1000f)
         {
             fireDelay.Stop();
             startGrapple = false;
-            startGrappling();
+            StartGrappling();
         }
 
         if (onGround && !prevOnGround)
@@ -163,9 +163,7 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.y > 0)
             {
                 anim.SetBool("Grappling", true);
-                anim.SetBool("Falling", false);
-                //grapplesound
-               
+                anim.SetBool("Falling", false);           
             }
             else
             {
@@ -179,11 +177,6 @@ public class PlayerController : MonoBehaviour
     {
         if (grappling && grappleLine != null)
             grappleLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
-    }
-
-    Vector2 getPosition()
-    {
-        return rb.position;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -201,7 +194,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void doMovement()
+    private void DoMovement()
     {
         // movement
         float movement;
@@ -239,7 +232,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void createGrapple()
+    private void CreateGrapple()
     {
         grappleLine = new GameObject("Grapple").AddComponent<LineRenderer>();
         grappleLine.material = grappleMaterial;
@@ -250,7 +243,7 @@ public class PlayerController : MonoBehaviour
         grappleLine.material.color = Color.black;
     }
 
-    private RaycastHit2D getGrappleRaycast()
+    private RaycastHit2D GetGrappleRaycast()
     {
         // Check if there is a wall to grapple to
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -258,18 +251,18 @@ public class PlayerController : MonoBehaviour
         return Physics2D.Raycast(transform.position, (mousePos - (Vector2)transform.position).normalized, maxGrapLength, ~IgnoreLayer);
     }
 
-    private void startGrappling()
+    private void StartGrappling()
     {
         //onGround = false;
         //prevOnGround = false;
-        RaycastHit2D hit = getGrappleRaycast();
+        RaycastHit2D hit = GetGrappleRaycast();
 
         if (hit)
         {
             // Create grappling line
             if (grappleLine == null)
             {
-                createGrapple();
+                CreateGrapple();
             }
 
             // Set grapple position
@@ -286,7 +279,7 @@ public class PlayerController : MonoBehaviour
 
             if (grapLength > maxGrapLength)
             {
-                destroyGrapple();
+                DestroyGrapple();
                 return;
               
             }
@@ -303,7 +296,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void updateGrapple()
+    private void UpdateGrapple()
     {
         // Grapple Movement
         //grapSpeed += Input.GetAxisRaw("Vertical") * grapSpeedInc;
@@ -354,7 +347,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void destroyGrapple()
+    private void DestroyGrapple()
     {
         anim.SetBool("Grappling", false);
         // Fling Player
@@ -367,7 +360,7 @@ public class PlayerController : MonoBehaviour
         // Regain normal physics
         //rb.bodyType = RigidbodyType2D.Dynamic;
         //grapple sound
-        grappleSound.PlayOneShot(grappleRetr,0.8f);
+        grappleSound.PlayOneShot(grappleRetr,0.5f);
         CanMove = false;
     }
 }

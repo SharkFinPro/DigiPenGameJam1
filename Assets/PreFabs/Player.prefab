@@ -145,7 +145,7 @@ CapsuleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.02, y: -0.48}
   m_Size: {x: 0.51, y: 0.05}
@@ -173,7 +173,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   grappleMaterial: {fileID: 0}
-  grappleAct: {fileID: 8300000, guid: 2a575023951ce46c98f45e10caf30abf, type: 3}
+  grappleAct: {fileID: 8300000, guid: 1d15966acfaa7b64086a803e551152a0, type: 3}
   grappleRetr: {fileID: 8300000, guid: c08714c70753c4bbdab9fbb02997706f, type: 3}
 --- !u!95 &9158214024455706563
 Animator:
