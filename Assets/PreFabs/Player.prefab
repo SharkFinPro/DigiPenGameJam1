@@ -166,7 +166,7 @@ MonoBehaviour:
   EndAccel: 10
   MaxSpeed: 10
   maxGrapSpeed: 10
-  grapSpeedInc: 20
+  grapSpeedInc: 200
   FireDelay: 0.4
   IgnoreLayer:
     serializedVersion: 2
