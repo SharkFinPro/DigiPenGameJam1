@@ -319,10 +319,6 @@ public class PlayerController : MonoBehaviour
         //    grapPos = grapLength - blockClipDistance;
         //}
 
-        //// Grapple movement calculation
-        Vector2 p1 = grappleLine.GetPosition(0); // Point 1
-        Vector2 p2 = grappleLine.GetPosition(1); // Point 2
-
         //float ydif = p2.y - p1.y;
         //float xdif = p2.x - p1.x;
         //float ang = (float)Math.Atan2(xdif, ydif);
@@ -335,7 +331,12 @@ public class PlayerController : MonoBehaviour
         //rb.position = grapLoc;
 
         //grappleLine.SetPosition(0, grapLoc);
-        rb.AddForce((p2 - p1) * grapSpeedInc * Time.deltaTime);
+
+        // Grapple movement calculation
+        Vector2 p1 = grappleLine.GetPosition(0); // Point 1
+        Vector2 p2 = grappleLine.GetPosition(1); // Point 2
+
+        rb.AddForce((p2 - p1).normalized * grapSpeedInc);
 
         if(rb.velocity.magnitude > maxGrapSpeed)
         {
