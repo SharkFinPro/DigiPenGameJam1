@@ -25,19 +25,19 @@ public class LevelController : MonoBehaviour
         
     }
 
-    void nextLevel()
+    public void NextLevel()
     {
         level++;
         SceneManager.LoadScene(sceneName: level.ToString());
     }
 
-    void setLevel(int lvl)
+    public void SetLevel(int lvl)
     {
         level = lvl;
         SceneManager.LoadScene(sceneName: level.ToString());
     }
 
-    void reloadLevel()
+    public void ReloadLevel()
     {
         SceneManager.LoadScene(sceneName: level.ToString());
     }
