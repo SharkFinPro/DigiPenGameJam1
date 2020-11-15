@@ -81,11 +81,27 @@ public class PlayerController : MonoBehaviour
         if (!grappling && CanMove && !fireDelay.IsRunning)
         {
             doMovement();
+            if (Math.Abs(rb.velocity.x) > 0.1)
+            {
+                render.flipX = rb.velocity.x < 0;
+            }
+        }
+        else if (grappling || fireDelay.IsRunning)
+        {
+            if (grappleLine != null)
+            {
+                render.flipX = rb.position.x > grappleLine.GetPosition(1).x;
+            }
+            else
+            {
+                render.flipX = rb.position.x > Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+            }
         }
 
         // Grapple
         if (Input.GetMouseButtonDown(0))
         {
+            //Figure out firing angle range for animation
             Vector2 diff = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
             float angle = Mathf.Asin(diff.y / diff.magnitude) * Mathf.Rad2Deg;
             if (angle < -45)
@@ -104,9 +120,11 @@ public class PlayerController : MonoBehaviour
             startGrapple = true;
             anim.SetTrigger("Fire");
             anim.SetBool("Grappling", true);
+
+            //Slight delay to play firing animation
             fireDelay.Restart();
             CanMove = false;
-            rb.velocity = new Vector2(diff.x > 0 ? 0.15f : -0.15f, rb.velocity.y);
+            //rb.velocity = new Vector2(diff.x > 0 ? 0.15f : -0.15f, rb.velocity.y);
         }
         else if (Input.GetMouseButton(0) && grappling)
         {
@@ -135,11 +153,6 @@ public class PlayerController : MonoBehaviour
         }
         prevOnGround = onGround;
 
-        if (Math.Abs(rb.velocity.x) > 0.1)
-        {
-            render.flipX = rb.velocity.x < 0;
-        }
-
         if (!onGround)
         {
             if (rb.velocity.y > 0)
@@ -149,8 +162,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                anim.SetBool("Grappling", false);
                 anim.SetBool("Falling", true);
+                anim.SetBool("Grappling", false);
             }
         }
     }
