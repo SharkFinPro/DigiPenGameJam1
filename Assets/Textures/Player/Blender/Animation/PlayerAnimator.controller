@@ -329,6 +329,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Falling
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Grappling
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2325371566051031605}
   m_Solo: 0
@@ -664,7 +667,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2325371566051031605}
-    m_Position: {x: 50, y: 130, z: 0}
+    m_Position: {x: 70, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5990003346383756119}
     m_Position: {x: 310, y: -110, z: 0}
@@ -676,11 +679,11 @@ AnimatorStateMachine:
     m_Position: {x: 660, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1331971519703598336}
-    m_Position: {x: 440, y: 560, z: 0}
+    m_Position: {x: 480, y: 370, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 6690643677399694308}
-    m_Position: {x: 210, y: 410, z: 0}
+    m_Position: {x: 130, y: 480, z: 0}
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:

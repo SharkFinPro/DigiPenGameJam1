@@ -168,6 +168,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (grappling && grappleLine != null)
+            grappleLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
+    }
+
     Vector2 getPosition()
     {
         return rb.position;
@@ -260,10 +266,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Set grapple position
-            grapPos = 0;
-            initGrap = getPosition();
-            grapLoc = initGrap;
-            grappleLine.SetPosition(0, initGrap);
+            grappleLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
             grappleLine.SetPosition(1, hit.point);
             //grappleLine.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
             
@@ -272,8 +275,6 @@ public class PlayerController : MonoBehaviour
             Vector2 p1 = grappleLine.GetPosition(0);
             Vector2 p2 = grappleLine.GetPosition(1);
 
-            float xdif = p2.x - p1.x;
-            float ydif = p2.y - p1.y;
             grapLength = (p2 - p1).magnitude;
 
             if (grapLength > maxGrapLength)
@@ -319,7 +320,6 @@ public class PlayerController : MonoBehaviour
         //}
 
         //// Grapple movement calculation
-        grappleLine.SetPosition(0, transform.position);
         Vector2 p1 = grappleLine.GetPosition(0); // Point 1
         Vector2 p2 = grappleLine.GetPosition(1); // Point 2
 
