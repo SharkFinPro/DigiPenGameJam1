@@ -172,7 +172,7 @@ MonoBehaviour:
   IgnoreLayer:
     serializedVersion: 2
     m_Bits: 260
-  grappleMaterial: {fileID: 0}
+  grappleMaterial: {fileID: 2100000, guid: fefbad3355ed174428653684a5a901f5, type: 2}
   grappleAct: {fileID: 8300000, guid: 1d15966acfaa7b64086a803e551152a0, type: 3}
   grappleRetr: {fileID: 8300000, guid: c08714c70753c4bbdab9fbb02997706f, type: 3}
 --- !u!95 &9158214024455706563

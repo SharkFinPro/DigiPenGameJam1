@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public float EndAccel = 10f;
     [Tooltip("MaximumSpeed")]
     public float MaxSpeed = 10f;
-    bool CanMove = true;
+    private bool canMove = true;
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer render;
@@ -38,13 +38,11 @@ public class PlayerController : MonoBehaviour
 
     // Grappling
     private bool grappling = false;
-    public float maxGrapSpeed = 1.5f;
-    private float grapSpeed = 0;
-    public float grapSpeedInc = 0.1f;
+    public float MaxGrapSpeed = 1.5f;
+    public float GrapSpeedInc = 0.1f;
     public float FireDelay = 0.4f;
     public LayerMask IgnoreLayer;
     private float maxGrapLength = 150.0f;
-    private float blockClipDistance = 0.5f;
 
     private LineRenderer grappleLine;
     public Material grappleMaterial;
@@ -77,13 +75,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // After grappling, have you tried to move again?
-        if(!fireDelay.IsRunning && ((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround))
+        if(!fireDelay.IsRunning && ((!canMove && Input.GetAxisRaw("Horizontal") != 0) || onGround))
         {
-            CanMove = true;
+            canMove = true;
         }
 
         // Movement
-        if (!grappling && CanMove && !fireDelay.IsRunning)
+        if (!grappling && canMove && !fireDelay.IsRunning)
         {
             DoMovement();
             if (Math.Abs(rb.velocity.x) > 0.1)
@@ -128,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
             //Slight delay to play firing animation
             fireDelay.Restart();
-            CanMove = false;
+            canMove = false;
             //rb.velocity = new Vector2(diff.x > 0 ? 0.15f : -0.15f, rb.velocity.y);
         }
         else if (Input.GetMouseButton(0) && grappling)
@@ -339,11 +337,11 @@ public class PlayerController : MonoBehaviour
         //rb.position = grapLoc;
 
         //grappleLine.SetPosition(0, grapLoc);
-        rb.AddForce((p2 - p1) * grapSpeedInc * Time.deltaTime);
+        rb.AddForce((p2 - p1) * GrapSpeedInc * Time.deltaTime);
 
-        if(rb.velocity.magnitude > maxGrapSpeed)
+        if(rb.velocity.magnitude > MaxGrapSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxGrapSpeed;
+            rb.velocity = rb.velocity.normalized * MaxGrapSpeed;
         }
     }
 
@@ -361,6 +359,6 @@ public class PlayerController : MonoBehaviour
         //rb.bodyType = RigidbodyType2D.Dynamic;
         //grapple sound
         grappleSound.PlayOneShot(grappleRetr,0.5f);
-        CanMove = false;
+        canMove = false;
     }
 }
