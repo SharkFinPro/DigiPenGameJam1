@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public static class LevelController
 {
-    public static readonly int MaxLevel = 3;
+    public static readonly int MaxLevel = 5;
     private static int _level = 0;
     public static int Level { get => _level; private set => _level = value; }
 
