@@ -39,7 +39,7 @@ public class PlayerControllerFix : MonoBehaviour
     private bool grappling = false;
     public float grapSpeed = 0.25f;
     public LayerMask IgnoreLayer;
-    private float maxGrapLength = 10.0f;
+    public float maxGrapLength = 10.0f;
     private float blockClipDistance = 0.5f;
 
     private LineRenderer grappleLine;

@@ -13,7 +13,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -41,9 +40,8 @@ public class PlayerController : MonoBehaviour
     public float maxGrapSpeed = 1.5f;
     private float grapSpeed = 0;
     public float grapSpeedInc = 0.1f;
-    public float FireDelay = 0.4f;
     public LayerMask IgnoreLayer;
-    private float maxGrapLength = 150.0f;
+    public float maxGrapLength = 150.0f;
     private float blockClipDistance = 0.5f;
 
     private LineRenderer grappleLine;
@@ -54,13 +52,6 @@ public class PlayerController : MonoBehaviour
     private float grapPos;
     private float grapLength;
 
-    private bool startGrapple;
-    private Stopwatch fireDelay;
-    //grapple sound
-    private AudioSource grappleSound;
-    public AudioClip grappleAct;
-    public AudioClip grappleRetr;
-   
 
     // Start is called before the first frame update
     void Start()
@@ -69,82 +60,35 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         groundCol = GetComponent<CapsuleCollider2D>();
         render = GetComponent<SpriteRenderer>();
-        fireDelay = new Stopwatch();
-        grappleSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         // After grappling, have you tried to move again?
-        if(!fireDelay.IsRunning && ((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround))
+        if((!CanMove && Input.GetAxisRaw("Horizontal") != 0) || onGround)
         {
             CanMove = true;
         }
 
         // Movement
-        if (!grappling && CanMove && !fireDelay.IsRunning)
+        if (!grappling && CanMove)
         {
-            DoMovement();
-            if (Math.Abs(rb.velocity.x) > 0.1)
-            {
-                render.flipX = rb.velocity.x < 0;
-            }
-        }
-        else if (grappling || fireDelay.IsRunning)
-        {
-            if (grappleLine != null)
-            {
-                render.flipX = rb.position.x > grappleLine.GetPosition(1).x;
-            }
-            else
-            {
-                render.flipX = rb.position.x > Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-            }
+            doMovement();
         }
 
         // Grapple
         if (Input.GetMouseButtonDown(0))
         {
-            //Figure out firing angle range for animation
-            Vector2 diff = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
-            float angle = Mathf.Asin(diff.y / diff.magnitude) * Mathf.Rad2Deg;
-            if (angle < -45)
-            {
-                anim.SetInteger("FireAngle", -1);
-            }
-            else if (angle > 45)
-            {
-                anim.SetInteger("FireAngle", 1);
-            }
-            else
-            {
-                anim.SetInteger("FireAngle", 0);
-            }
-
-            startGrapple = true;
-            anim.SetTrigger("Fire");
-            anim.SetBool("Grappling", true);
-
-            //Slight delay to play firing animation
-            fireDelay.Restart();
-            CanMove = false;
-            //rb.velocity = new Vector2(diff.x > 0 ? 0.15f : -0.15f, rb.velocity.y);
+            startGrappling();
         }
         else if (Input.GetMouseButton(0) && grappling)
         {
-            UpdateGrapple();
+            updateGrapple();
         }
-        else if (!Input.GetMouseButton(0) && grappling)
+        else if (Input.GetMouseButtonUp(0) && grappling)
         {
-            DestroyGrapple();
-        }
-
-        if (startGrapple && fireDelay.ElapsedMilliseconds > FireDelay * 1000f)
-        {
-            fireDelay.Stop();
-            startGrapple = false;
-            StartGrappling();
+            destroyGrapple();
         }
 
         if (onGround && !prevOnGround)
@@ -157,26 +101,11 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Falling", !onGround);
         }
         prevOnGround = onGround;
-
-        if (!onGround)
-        {
-            if (rb.velocity.y > 0)
-            {
-                anim.SetBool("Grappling", true);
-                anim.SetBool("Falling", false);           
-            }
-            else
-            {
-                anim.SetBool("Falling", true);
-                anim.SetBool("Grappling", false);
-            }
-        }
     }
 
-    private void LateUpdate()
+    Vector2 getPosition()
     {
-        if (grappling && grappleLine != null)
-            grappleLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
+        return rb.position;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -194,7 +123,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DoMovement()
+    private void doMovement()
     {
         // movement
         float movement;
@@ -220,6 +149,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Math.Abs(movement) > 0.1)
+        {
+            render.flipX = movement < 0;
+        }
         // KEEP Y VELOCITY CONSISTENT!
         // this is why movement is best kept as just a float instead of a vector
         if (onGround)
@@ -232,7 +165,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CreateGrapple()
+    private void createGrapple()
     {
         grappleLine = new GameObject("Grapple").AddComponent<LineRenderer>();
         grappleLine.material = grappleMaterial;
@@ -243,7 +176,7 @@ public class PlayerController : MonoBehaviour
         grappleLine.material.color = Color.black;
     }
 
-    private RaycastHit2D GetGrappleRaycast()
+    private RaycastHit2D getGrappleRaycast()
     {
         // Check if there is a wall to grapple to
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -251,22 +184,25 @@ public class PlayerController : MonoBehaviour
         return Physics2D.Raycast(transform.position, (mousePos - (Vector2)transform.position).normalized, maxGrapLength, ~IgnoreLayer);
     }
 
-    private void StartGrappling()
+    private void startGrappling()
     {
         //onGround = false;
         //prevOnGround = false;
-        RaycastHit2D hit = GetGrappleRaycast();
+        RaycastHit2D hit = getGrappleRaycast();
 
         if (hit)
         {
             // Create grappling line
             if (grappleLine == null)
             {
-                CreateGrapple();
+                createGrapple();
             }
 
             // Set grapple position
-            grappleLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f));
+            grapPos = 0;
+            initGrap = getPosition();
+            grapLoc = initGrap;
+            grappleLine.SetPosition(0, initGrap);
             grappleLine.SetPosition(1, hit.point);
             //grappleLine.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
             
@@ -275,28 +211,26 @@ public class PlayerController : MonoBehaviour
             Vector2 p1 = grappleLine.GetPosition(0);
             Vector2 p2 = grappleLine.GetPosition(1);
 
+            float xdif = p2.x - p1.x;
+            float ydif = p2.y - p1.y;
             grapLength = (p2 - p1).magnitude;
 
             if (grapLength > maxGrapLength)
             {
-                DestroyGrapple();
+                destroyGrapple();
                 return;
-              
             }
-            
+
             // Make sure gravity is not an issue, reset velocity
             //rb.bodyType = RigidbodyType2D.Kinematic;
             //rb.velocity = new Vector2(0, 0);
-            
-            //grapples sound 
-            grappleSound.PlayOneShot(grappleAct,1);
-           
+
             // Make sure the player knows it is grappling now
             grappling = true;
         }
     }
 
-    private void UpdateGrapple()
+    private void updateGrapple()
     {
         // Grapple Movement
         //grapSpeed += Input.GetAxisRaw("Vertical") * grapSpeedInc;
@@ -324,6 +258,7 @@ public class PlayerController : MonoBehaviour
         //}
 
         //// Grapple movement calculation
+        grappleLine.SetPosition(0, transform.position);
         Vector2 p1 = grappleLine.GetPosition(0); // Point 1
         Vector2 p2 = grappleLine.GetPosition(1); // Point 2
 
@@ -347,9 +282,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DestroyGrapple()
+    private void destroyGrapple()
     {
-        anim.SetBool("Grappling", false);
         // Fling Player
         //rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
 
@@ -359,8 +293,7 @@ public class PlayerController : MonoBehaviour
 
         // Regain normal physics
         //rb.bodyType = RigidbodyType2D.Dynamic;
-        //grapple sound
-        grappleSound.PlayOneShot(grappleRetr,0.5f);
+
         CanMove = false;
     }
 }
