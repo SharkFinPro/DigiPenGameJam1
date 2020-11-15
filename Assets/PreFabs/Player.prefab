@@ -148,7 +148,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.02, y: -0.48}
-  m_Size: {x: 0.51, y: 0.05}
+  m_Size: {x: 0.4, y: 0.05}
   m_Direction: 1
 --- !u!114 &7486720186777462055
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   FireDelay: 0.4
   IgnoreLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 260
   grappleMaterial: {fileID: 0}
   grappleAct: {fileID: 8300000, guid: 1d15966acfaa7b64086a803e551152a0, type: 3}
   grappleRetr: {fileID: 8300000, guid: c08714c70753c4bbdab9fbb02997706f, type: 3}

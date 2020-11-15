@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NormWall
   - SlipWall
+  - Ignore
   layers:
   - Default
   - TransparentFX

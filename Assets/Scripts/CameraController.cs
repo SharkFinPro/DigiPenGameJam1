@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
         w = h * cam.aspect;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (shake.IsRunning)
         {
@@ -68,7 +68,8 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        Vector3 newPos = new Vector3(transform.position.x + (Follow.transform.position.x - transform.position.x) / Smoothness, transform.position.y + (Follow.transform.position.y - transform.position.y) / Smoothness, -10);
+        Vector3 newPos = Vector3.Lerp(transform.position, Follow.transform.position, 1 / Smoothness);
+        newPos = new Vector3(newPos.x, newPos.y, -10); ;
 
         if (Bounds != null)
         {

@@ -9,36 +9,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelController : MonoBehaviour
+public static class LevelController
 {
-    private int level = 1;
+    public static readonly int MaxLevel = 3;
+    private static int _level = 0;
+    public static int Level { get => _level; private set => _level = value; }
 
-    // Start is called before the first frame update
-    void Start()
+    public static void NextLevel()
     {
-        SceneManager.LoadScene(sceneName: "menu");
+        Level++;
+        if (Level >= MaxLevel)
+        {
+            Level = 0;
+        }
+
+        SceneManager.LoadScene(Level);
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void SetLevel(int lvl)
     {
-        
+        Level = lvl;
+        SceneManager.LoadScene(Level);
     }
 
-    void nextLevel()
+    public static void ReloadLevel()
     {
-        level++;
-        SceneManager.LoadScene(sceneName: level.ToString());
-    }
-
-    void setLevel(int lvl)
-    {
-        level = lvl;
-        SceneManager.LoadScene(sceneName: level.ToString());
-    }
-
-    void reloadLevel()
-    {
-        SceneManager.LoadScene(sceneName: level.ToString());
+        SceneManager.LoadScene(Level);
     }
 }
