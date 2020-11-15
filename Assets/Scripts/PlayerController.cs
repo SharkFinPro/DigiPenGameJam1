@@ -56,11 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private bool startGrapple;
     private Stopwatch fireDelay;
-    //grapple sound
-    private AudioSource grappleSound;
-    public AudioClip grappleAct;
-    public AudioClip grappleRetr;
-   
+
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +66,6 @@ public class PlayerController : MonoBehaviour
         groundCol = GetComponent<CapsuleCollider2D>();
         render = GetComponent<SpriteRenderer>();
         fireDelay = new Stopwatch();
-        grappleSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -164,8 +159,6 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetBool("Grappling", true);
                 anim.SetBool("Falling", false);
-                //grapplesound
-               
             }
             else
             {
@@ -288,16 +281,12 @@ public class PlayerController : MonoBehaviour
             {
                 destroyGrapple();
                 return;
-              
             }
-            
+
             // Make sure gravity is not an issue, reset velocity
             //rb.bodyType = RigidbodyType2D.Kinematic;
             //rb.velocity = new Vector2(0, 0);
-            
-            //grapples sound 
-            grappleSound.PlayOneShot(grappleAct,1);
-           
+
             // Make sure the player knows it is grappling now
             grappling = true;
         }
@@ -366,8 +355,7 @@ public class PlayerController : MonoBehaviour
 
         // Regain normal physics
         //rb.bodyType = RigidbodyType2D.Dynamic;
-        //grapple sound
-        grappleSound.PlayOneShot(grappleRetr,0.8f);
+
         CanMove = false;
     }
 }
