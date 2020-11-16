@@ -33,3 +33,10 @@ Needs to feel huge, and like the boat is still settling down. Dark, but not real
 
 ### Target Audience
 Casual players of all kinds, nothing that is excessively hard. No major restrictions, anyone can play!
+
+
+## Controls
+<img src="https://github.com/SharkFinPro/DigiPenGameJam1/blob/main/Idle.gif" width="64"/>
+Click to shoot a grappling hook and pull yourself in the direction of the mouse. A and D or left and right aorrow keys to walk.
+<img src="https://github.com/SharkFinPro/DigiPenGameJam1/blob/main/Portal.gif" width="128"/>
+Get to the Portal to proceed to the next level.
