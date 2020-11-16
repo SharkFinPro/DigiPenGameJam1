@@ -17,7 +17,7 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (collision.transform.CompareTag(PlayerTag))
         {
-            LevelController.ReloadLevel();
+            SceneManager.LoadScene(level);
         }
     }
 
