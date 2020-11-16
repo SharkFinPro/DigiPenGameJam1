@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿////////////////
+///By: Flynn Duniho
+///Date: 11/15/20
+///Description: Tints sprites a random color
+////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
