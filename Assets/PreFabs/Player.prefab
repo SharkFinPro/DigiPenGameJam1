@@ -106,7 +106,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 5c0598b706bf49d47b7554d635c35167, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &7486720186777462059
 BoxCollider2D:
@@ -166,7 +166,7 @@ MonoBehaviour:
   StartAccel: 2
   EndAccel: 10
   MaxSpeed: 10
-  MaxGrapSpeed: 30
+  MaxGrapSpeed: 20
   GrapSpeedInc: 10
   FireDelay: 0.4
   IgnoreLayer:
