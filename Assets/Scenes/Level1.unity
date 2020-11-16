@@ -90705,6 +90705,11 @@ PrefabInstance:
       propertyPath: grappleAct
       value: 
       objectReference: {fileID: 8300000, guid: 1d15966acfaa7b64086a803e551152a0, type: 3}
+    - target: {fileID: 7486720186777462055, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
+        type: 3}
+      propertyPath: GrapSpeedInc
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7486720186777462056, guid: d12d64a7b6aec2f4b9d5f512b7f54176,
         type: 3}
       propertyPath: m_Name

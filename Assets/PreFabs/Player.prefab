@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0.4
+  m_GravityScale: 0.6
   m_Material: {fileID: 6200000, guid: 5c0598b706bf49d47b7554d635c35167, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -166,8 +166,8 @@ MonoBehaviour:
   StartAccel: 2
   EndAccel: 10
   MaxSpeed: 10
-  maxGrapSpeed: 5
-  grapSpeedInc: 200
+  MaxGrapSpeed: 30
+  GrapSpeedInc: 10
   FireDelay: 0.4
   IgnoreLayer:
     serializedVersion: 2

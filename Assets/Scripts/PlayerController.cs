@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     private float grapPos;
     private float grapLength;
 
+    private float gravityScale;
+
     private bool startGrapple;
     private Stopwatch fireDelay;
     //grapple sound
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour
         render = GetComponent<SpriteRenderer>();
         fireDelay = new Stopwatch();
         grappleSound = GetComponent<AudioSource>();
+        gravityScale = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -102,7 +105,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Grapple
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !fireDelay.IsRunning)
         {
             //Figure out firing angle range for animation
             Vector2 diff = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
@@ -251,6 +254,7 @@ public class PlayerController : MonoBehaviour
 
     private void StartGrappling()
     {
+        rb.gravityScale = 0;
         //onGround = false;
         //prevOnGround = false;
         RaycastHit2D hit = GetGrappleRaycast();
@@ -337,7 +341,7 @@ public class PlayerController : MonoBehaviour
         //rb.position = grapLoc;
 
         //grappleLine.SetPosition(0, grapLoc);
-        rb.AddForce((p2 - p1) * GrapSpeedInc * Time.deltaTime);
+        rb.AddForce((p2 - p1).normalized * GrapSpeedInc);
 
         if(rb.velocity.magnitude > MaxGrapSpeed)
         {
@@ -347,6 +351,7 @@ public class PlayerController : MonoBehaviour
 
     private void DestroyGrapple()
     {
+        rb.gravityScale = gravityScale;
         anim.SetBool("Grappling", false);
         // Fling Player
         //rb.velocity = -(rb.position - (Vector2)grappleLine.GetPosition(1)).normalized * grapSpeed / Time.deltaTime;
