@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa6b5988f4d8c346bbc56442dfc2ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 4
   PlayerTag: Player
 --- !u!1 &68467796
 GameObject:
